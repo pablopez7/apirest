@@ -6,8 +6,8 @@ const bcrypt = require('bcrypt-nodejs')
 let UserCtrl = {}
 
 UserCtrl.saveUser = (req, res) => {
-    let params = req.body
-    let user = new User()
+    const params = req.body
+    const user = new User()
 
     if (params.name && params.surname && params.nick && params.email && params.password) {
 
@@ -39,10 +39,10 @@ UserCtrl.saveUser = (req, res) => {
 }
 
 UserCtrl.loginUser = (req, res) => {
-    let params = req.body
+    const params = req.body
     
-    let email = params.email
-    let password = params.password
+    const email = params.email
+    const password = params.password
 
     User.findOne({ email : email }, (err, user) => {
         if (err) return res.status(500).send({ message : `Error en la peticion. ${err}` })
