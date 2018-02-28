@@ -1,0 +1,27 @@
+{
+  "name": "apirest",
+  "version": "1.0.0",
+  "description": "API RESTfull Nodejs, Express y MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pablo López",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "connect-multiparty": "^2.1.0",
+    "crypto": "^1.0.1",
+    "express": "^4.16.2",
+    "express-validator": "^5.0.2",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.20.1",
+    "mongoose": "^5.0.7",
+    "multiparty": "^4.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.1"
+  }
+}
