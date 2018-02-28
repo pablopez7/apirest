@@ -2,6 +2,7 @@
 
 const User = require('../models/userModel')
 const bcrypt = require('bcrypt-nodejs')
+const jwt = require('../services/jwt')
 
 let UserCtrl = {}
 
@@ -49,10 +50,16 @@ UserCtrl.loginUser = (req, res) => {
         if (user) {
             bcrypt.compare(password, user.password, (err, check) => {
                 if(check){
+                    if (params.gettoken) {
+                        return res.status(200).send({
+                            token: jwt.createToken(user)
+                        })
+                    }else{
+                        //No envia el password
+                        user.password = undefined
+                        return res.status(200).send({ user })
+                    }
 
-                    //No envia el password
-                    user.password = undefined
-                    return res.status(200).send({ user })
                 }else{
                     res.status(404).send({ message: `No se ha podido identificar`})
                 }
