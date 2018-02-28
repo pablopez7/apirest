@@ -2,7 +2,7 @@
 
 const jwt = require('jwt-simple')
 const moment = require('moment')
-const secret = 'clave_secreta_para_mi_api_restful'
+const config = require('../config')
 
 exports.createToken = function (user) {
     const payload = {
@@ -11,5 +11,5 @@ exports.createToken = function (user) {
         exp: moment().add(30, 'days').unix()
     }
 
-    return jwt.encode(payload, secret)
+    return jwt.encode(payload, config.SECRET_TOKEN)
 }
