@@ -4,15 +4,16 @@ const jwt = require('jwt-simple')
 const moment = require('moment')
 const config = require('../config')
 
-function isAuth (req, res, next) {
+function isAuth(req, res, next) {
   if (!req.headers.authorization) {
-    return res.status(403).send({ message: 'No tienes autorización' })
+    return res.status(403).send({
+      message: 'No tienes autorización'
+    })
   }
 
-  //const token = req.headers.authorization.replace(/['"]+/g, '')
-  const token = req.headers.authorization.split(' ')[1]
+  const token = req.headers.authorization.replace(/['"]+/g, '')
 
-  try{
+  try {
     const payload = jwt.decode(token, config.SECRET_TOKEN)
 
     if (payload.exp <= moment().unix()) {
@@ -20,14 +21,12 @@ function isAuth (req, res, next) {
         message: 'El token ha expirado'
       })
     }
-  }catch(ex){
-    return res.send(404).send({
+  } catch (ex) {
+    return res.status(404).send({
       message: 'El token no es válido'
     })
   }
-
-  req.user = payload
-
+  
   next()
 }
 
