@@ -18,6 +18,6 @@ api.post('/login', UserCtrl.loginUser)
 
 api.get('/user/:id', auth, UserCtrl.getUser)
 
-api.get('/users/:page?', UserCtrl.getUsers)
+api.get('/users/:page?', auth, UserCtrl.getUsers)
 
 module.exports = api

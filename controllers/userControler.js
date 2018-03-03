@@ -104,10 +104,7 @@ UserCtrl.getUser = (req, res) => {
 UserCtrl.getUsers = (req, res) => {
     //const identity_user_id = req.user.sub
 
-    const page = 1
-    if (req.params.page) {
-        page = req.params.page
-    }
+    const page = req.params.page
 
     const itemsPerPage = 5
 
