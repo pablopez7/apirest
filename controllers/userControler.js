@@ -19,19 +19,37 @@ UserCtrl.saveUser = (req, res) => {
         user.role = 'ROLE_USER'
         user.picture = null
 
-        bcrypt.hash(params.password, null, null, (err, hash) => {
-            user.password = hash
-            user.save((err, userStored) => {
 
-                if (err) return res.status(500).send({ message : `Error al guardar al Usuario. ${err}` })
-
-                if (userStored) {
-                    res.status(200).send({ user: userStored })
-                }else{
-                    res.status(404).send({ message: `El usuario no ha sido registrado`})
-                }
-
+        User.find({
+            $or: [
+                { email: user.email.toLowerCase() },
+                { nick: user.nick.toLowerCase() }
+            ]
+        }).exec((err, users) => {
+            if (err) return res.status(500).send({
+                message: `Error en la peticion. ${err}`
             })
+
+            if (users && users.length >= 1) {
+                return res.status(200).send({
+                    message: `El usuario ya existe.`
+                })
+            }else{
+                bcrypt.hash(params.password, null, null, (err, hash) => {
+                    user.password = hash
+                    user.save((err, userStored) => {
+        
+                        if (err) return res.status(500).send({ message : `Error al guardar al Usuario. ${err}` })
+        
+                        if (userStored) {
+                            res.status(200).send({ user: userStored })
+                        }else{
+                            res.status(404).send({ message: `El usuario no ha sido registrado`})
+                        }
+        
+                    })
+                })
+            }
         })
 
     }else{
@@ -67,6 +85,18 @@ UserCtrl.loginUser = (req, res) => {
         }else{
             res.status(404).send({ message: `No se ha podido identificar!!`})
         }
+    })
+}
+
+UserCtrl.getUser = (req, res) => {
+    const userId = req.params.id
+
+    User.findById(userId, (err, user) => {
+        if (err) return res.status(500).send({ message : `No se encontro al Usuario. ${err}` })
+
+        if (!user) return res.status(404).send({ message : `El usuario no existe` })
+
+        return res.status(200).send({ user })
     })
 }
 

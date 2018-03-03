@@ -16,4 +16,6 @@ api.post('/user',
 
 api.post('/login', UserCtrl.loginUser)
 
+api.get('/user/:id', auth, UserCtrl.getUser)
+
 module.exports = api
