@@ -1,8 +1,8 @@
-'use strict'
-
+// Requires
 const express = require('express')
 const bodyParser = require('body-parser')
 
+// Inicializacion
 const app = express()
 
 //Cargar Rutas
