@@ -1,7 +1,7 @@
 {
-  "name": "server-gps",
+  "name": "apirest",
   "version": "1.0.0",
-  "description": "Servidor API REST full Con Node.js, Express, MongoDB y Socket.io",
+  "description": "Servidor API REST full Con Node.js, Express, MongoDB y Validaciones",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -26,3 +26,4 @@
     "nodemon": "^1.18.6"
   }
 }
+
